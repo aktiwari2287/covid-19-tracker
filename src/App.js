@@ -3,11 +3,14 @@ import React, { useState, useEffect } from 'react';
 import InfoBox from "./components/InfoBox";
 import { Card, CardContent, Typography,FormControl, Select, MenuItem } from "@material-ui/core";
 import Map from "./components/Map";
+import Table from "./components/Table"
+import {sortData} from "./utilities/util";
+import LineGraph from './components/LineGraph'
 function App() {
   const [countries, setCountries] = useState([{}]);
   const [country, setCountry] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState([]);
-
+  const [tableData, setTableData] = useState([]);
       useEffect(() => {
         
           fetch("https://disease.sh/v3/covid-19/all")
@@ -19,14 +22,18 @@ function App() {
 
   useEffect(() => {
     const getCountriesData = async () => {
-      const countries = await fetch("https://disease.sh/v3/covid-19/countries")
+      await fetch("https://disease.sh/v3/covid-19/countries")
         .then((response) => response.json())
         .then((data) => {
-          return data.map((country) => {
+          const countries =  data.map((country) => {
             return { name: country.country, value: country.countryInfo.iso2 };
           });
+          const sortedData = sortData(data);
+          setTableData(sortedData);
+          setCountries(countries);
+          console.log(tableData);
         });
-      setCountries(countries);
+        
     };
     getCountriesData();
   }, []);
@@ -78,8 +85,12 @@ function App() {
       </div>
       <Card className="app__right">
         <CardContent>
-          <h3>Live Cases by Country</h3>
-          <h3>Worldwide cases</h3>
+          <h2>Live Cases by Country</h2>
+         
+          <Table countries={tableData}></Table>
+
+          <h2>Worldwide cases</h2>
+          <LineGraph></LineGraph>
         </CardContent>
       </Card>
     </div>
