@@ -9,7 +9,9 @@ function App() {
           <Header></Header>
         </div>
        <div className="app__stats">
-          <InfoBox></InfoBox>
+          <InfoBox title="Coronavirus Cases" cases={123} total={2000}></InfoBox>
+          <InfoBox title="Recovered" cases={12311} total={3000}></InfoBox>
+          <InfoBox title="Deaths" cases={3432} total={400}></InfoBox>
        </div>
     </div>
   );
