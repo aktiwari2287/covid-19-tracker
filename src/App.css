@@ -15,4 +15,20 @@ body{
 .app__stats {
   display: flex;
   justify-content: space-between;
+  padding-top: 20px;
+}
+
+.app {
+  display: flex;
+  justify-content: space-evenly;
+  padding:20px;
+}
+
+.app__left {
+  flex:0.9;
+}
+@media (max-width: 900px) {
+  .app {
+    flex-direction: column;
+  }
 }
