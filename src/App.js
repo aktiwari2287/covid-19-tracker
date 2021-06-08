@@ -85,9 +85,9 @@ function App() {
           </FormControl>
         </div>
         <div className="app__stats">
-          <InfoBox title="Coronavirus Cases" onClick={(onclicked)=>setCasesType("cases")} cases={printStat(countryInfo.todayCases)} total={printStat(countryInfo.cases)}></InfoBox>
-          <InfoBox title="Recovered" onClick={(onclicked)=>setCasesType("recovered")} cases={printStat(countryInfo.todayRecovered)} total={printStat(countryInfo.recovered)}></InfoBox>
-          <InfoBox title="Deaths" onClick={(onclicked)=>setCasesType("deaths")} cases={printStat(countryInfo.todayDeaths)} total={printStat(countryInfo.deaths)}></InfoBox>
+          <InfoBox isRed active = {casesType==="cases"} onClick={(onclicked)=>setCasesType("cases")} title="Coronavirus Cases" cases={printStat(countryInfo.todayCases)} total={printStat(countryInfo.cases)}></InfoBox>
+          <InfoBox active = {casesType==="recovered"} title="Recovered" onClick={(onclicked)=>setCasesType("recovered")} cases={printStat(countryInfo.todayRecovered)} total={printStat(countryInfo.recovered)}></InfoBox>
+          <InfoBox isRed active = {casesType==="deaths"} title="Deaths" onClick={(onclicked)=>setCasesType("deaths")} cases={printStat(countryInfo.todayDeaths)} total={printStat(countryInfo.deaths)}></InfoBox>
         </div>
         <div className="app__map">
           <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom}></Map>
@@ -99,8 +99,8 @@ function App() {
          
           <Table countries={tableData}></Table>
 
-          <h2>Worldwide cases</h2>
-          <LineGraph></LineGraph>
+          <h2>Worldwide cases new {casesType}</h2>
+          <LineGraph casesType={casesType}></LineGraph>
         </CardContent>
       </Card>
     </div>
