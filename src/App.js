@@ -4,7 +4,7 @@ import InfoBox from "./components/InfoBox";
 import { Card, CardContent, Typography,FormControl, Select, MenuItem } from "@material-ui/core";
 import Map from "./components/Map";
 import Table from "./components/Table"
-import {sortData} from "./utilities/util";
+import {sortData, printStat} from "./utilities/util";
 import LineGraph from './components/LineGraph';
 import "leaflet/dist/leaflet.css";
 function App() {
@@ -85,12 +85,12 @@ function App() {
           </FormControl>
         </div>
         <div className="app__stats">
-          <InfoBox title="Coronavirus Cases" onClick={(onclicked)=>setCasesType("cases")} cases={countryInfo.todayCases} total={countryInfo.cases}></InfoBox>
-          <InfoBox title="Recovered" onClick={(onclicked)=>setCasesType("recovered")} cases={countryInfo.todayRecovered} total={countryInfo.recovered}></InfoBox>
-          <InfoBox title="Deaths" onClick={(onclicked)=>setCasesType("deaths")} cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
+          <InfoBox title="Coronavirus Cases" onClick={(onclicked)=>setCasesType("cases")} cases={printStat(countryInfo.todayCases)} total={printStat(countryInfo.cases)}></InfoBox>
+          <InfoBox title="Recovered" onClick={(onclicked)=>setCasesType("recovered")} cases={printStat(countryInfo.todayRecovered)} total={printStat(countryInfo.recovered)}></InfoBox>
+          <InfoBox title="Deaths" onClick={(onclicked)=>setCasesType("deaths")} cases={printStat(countryInfo.todayDeaths)} total={printStat(countryInfo.deaths)}></InfoBox>
         </div>
         <div className="app__map">
-          <Map countries={mapCountries} center={mapCenter} zoom={mapZoom}></Map>
+          <Map casesType={casesType} countries={mapCountries} center={mapCenter} zoom={mapZoom}></Map>
         </div>
       </div>
       <Card className="app__right">

@@ -71,3 +71,6 @@ export const showDataOnMap = (data, casesType = "cases") =>
       </Popup>
     </Circle>
   ));
+
+  export const printStat = (stat) =>
+  stat ? `+${numeral(stat).format("0.0a")}` : "No New Cases";
