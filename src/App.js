@@ -5,12 +5,15 @@ import { Card, CardContent, Typography,FormControl, Select, MenuItem } from "@ma
 import Map from "./components/Map";
 import Table from "./components/Table"
 import {sortData} from "./utilities/util";
-import LineGraph from './components/LineGraph'
+import LineGraph from './components/LineGraph';
+import "leaflet/dist/leaflet.css";
 function App() {
   const [countries, setCountries] = useState([{}]);
   const [country, setCountry] = useState("Worldwide");
   const [countryInfo, setCountryInfo] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [mapCenter, setMapCenter] = useState({lat: 34.80746 ,lng: -40.4796 });
+  const [mapZoom, setMapZoom] = useState(3);
       useEffect(() => {
         
           fetch("https://disease.sh/v3/covid-19/all")
@@ -50,6 +53,10 @@ function App() {
       .then((data) => {
         setCountry(countryCode);
         setCountryInfo(data);
+        countryCode === "worldwide"
+          ? setMapCenter([34.80746, -40.4796])
+          : setMapCenter([data.countryInfo.lat, data.countryInfo.long]);
+        setMapZoom(4);
       });
     console.log(countryInfo);
   };
@@ -80,7 +87,7 @@ function App() {
           <InfoBox title="Deaths" cases={countryInfo.todayDeaths} total={countryInfo.deaths}></InfoBox>
         </div>
         <div className="app__map">
-          <Map></Map>
+          <Map center={mapCenter} zoom={mapZoom}></Map>
         </div>
       </div>
       <Card className="app__right">
